@@ -2,7 +2,7 @@ from ts2vg import HorizontalVG
 import numpy as np
 import matplotlib.pyplot as plt
 ts = np.loadtxt('logmap_ts.dat')[:,1]
-q = np.concatenate((np.linspace(0, 1, 2000, endpoint=False), -np.linspace(-5, -1, 4000, endpoint=False)[::-1]))
+q = np.concatenate((np.linspace(0, 1, 1000, endpoint=False), -np.linspace(-5, -1, 4000, endpoint=False)[::-1]))
 
 def dist_degree_in(g):
 
@@ -32,7 +32,7 @@ for i in range(len(ks_in)):
     if ks_in[i] in ks_out:
         j = np.where(ks_out == ks_in[i])
         KLD += ps_out[j] * np.log(ps_out[j]/ps_in[i])
-        RKD += (ps_out[j]**q )* (ps_in[i]**(1-q))
+        RKD += (ps_out[j]**q)*(ps_in[i]**(1-q))
 
 LVD = (1 - 1/RKD)/(q-1)
 RD = np.log(RKD)/(q-1)

@@ -3,21 +3,21 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 q = 1.5
-r = np.linspace(1.7, 1.8, 1001)
+r = np.linspace(3.5, 4, 1001)
 N_values = 10**3
 n_trans = 10**4
 
 def dist_degree_in(g):
 
     ks, counts = np.unique(g.degrees_in, return_counts=True)
-    ps = counts/sum(counts)
+    ps = counts/np.sum(counts)
 
     return ks, ps
 
 def dist_degree_out(g):
 
     ks, counts = np.unique(g.degrees_out, return_counts=True)
-    ps = counts/sum(counts)
+    ps = counts/np.sum(counts)
 
     return ks, ps
 
