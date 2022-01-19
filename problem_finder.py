@@ -81,7 +81,7 @@ ax.legend()
 fig.show()
 
 option = input('To stop type "stop", Problem to analyze: ')
-
+number = 0
 while option != 'stop':
     i_problem = int(option)
     graph = problems[i_problem][2]
@@ -101,7 +101,7 @@ while option != 'stop':
 
     print("SUMA = " + str(problems[i_problem][1]))
 
-    fig2 = plt.figure(2)
+    fig2 = plt.figure("Visibility graph for problem " + str(i_problem))
     fig2.clf()
     ax2 = fig2.add_subplot(111)
     graph_plot_options = {
@@ -119,7 +119,7 @@ while option != 'stop':
     ax2.set_ylim((np.min(ts_to_plot)*1.5,np.max(ts_to_plot)*1.5))
     fig2.show()
 
-    fig3 = plt.figure("Probability distribution")
+    fig3 = plt.figure("Probability distribution for problem " + str(i_problem))
     fig3.clf()
     ax3 = fig3.add_subplot(111)
     ax3.plot(xin, yin, label='P(k) in', marker='o', markersize=2)
@@ -127,4 +127,10 @@ while option != 'stop':
     ax3.legend()
     fig3.show()
 
-    option = input('stop? ')
+    if number < 5:
+        option = input('stop? ')
+        number += 1
+    else:
+        option = input('nnngngng pls stoppp :(?? ')
+        if option == 'stop':
+            print('thamks uwu')
