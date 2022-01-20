@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import networkx as nx
 q = 1.5
-r = np.linspace(1, 4, 10**3)
+r = np.linspace(1, 4, 3001) #3*(10**3)+1)
 N_values = 1000
 n_trans = 10**5
 scaling = 1
@@ -23,7 +23,7 @@ def dist_degree_out(g):
 
     return ks, ps
 
-x0 = .5
+x0 = .4
 x0log = x0*np.ones_like(r) 
 logmap = np.zeros((N_values, len(r)))
 n = 0
@@ -37,7 +37,7 @@ logmap[0] = x0log
 for i in range(N_values-1):
     logmap[i+1] = r*logmap[i]*(1-logmap[i])
 
-ts = logmap
+ts = np.around(logmap, decimals=15)
 
 KLD = np.zeros(len(r))
 suma = np.zeros(len(r))
@@ -45,7 +45,7 @@ suma = np.zeros(len(r))
 problems = []
 
 for k in range(len(r)):
-
+    
     g = HorizontalVG(directed='left_to_right').build(ts[:,k])
 
     ks_in, ps_in = dist_degree_in(g)
@@ -58,7 +58,7 @@ for k in range(len(r)):
             KLD[k] += ps_out[j] * np.log(ps_out[j]/ps_in[i])
             suma[k] += (ps_out[j]**q)*(ps_in[i]**(1-q))
     
-    if (suma[k] < 1 or suma[k]>1.2) and r[k]<3.6:
+    if suma[k] < 1 or (suma[k]>1.2 and r[k]<3.6):
         print('PROBLEM NUMBER ' + str(len(problems)) + ' IN r=' + str(r[k]))
         problems.append((k, suma[k], g))
 
@@ -79,6 +79,14 @@ ax.set_xlabel('r')
 ax.set_ylabel(r'$D(P_{out}||P_{in})$')
 ax.legend()
 fig.show()
+
+fig4 = plt.figure("Sum of p^q * v^(1-q)")
+fig4.clf()
+ax4 = fig4.add_subplot(111)
+ax4.plot(r, suma)
+ax4.set_ylabel(r"$\Sigma p^q v^{(1-q)}$")
+ax4.set_xlabel("r")
+fig4.show()
 
 option = input('To stop type "stop", Problem to analyze: ')
 number = 0

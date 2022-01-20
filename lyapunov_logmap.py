@@ -34,7 +34,7 @@ logmap[0] = x0log
 for i in range(N_values-1):
     logmap[i+1] = r*logmap[i]*(1-logmap[i])
 
-ts = logmap
+ts = np.around(logmap, decimals=15)
 
 KLD = np.zeros(len(r))
 sum = np.zeros(len(r))

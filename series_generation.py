@@ -49,7 +49,7 @@ if opt == 'LOG':
 
     for i in range(N_values-1):
         logmap[i+1] = r*logmap[i]*(1-logmap[i])
-
+    logmap = np.around(logmap, decimals=15)
     np.savetxt('logmap_ts.dat', np.column_stack((indices, logmap)))
 
     print('Logistic map time series succesfully generated.')
