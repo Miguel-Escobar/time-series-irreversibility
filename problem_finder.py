@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import networkx as nx
 q = 1.5
-r = np.linspace(1, 4, 3001) #3*(10**3)+1)
+r = np.linspace(3.5, 4, 501) #3*(10**3)+1)
 N_values = 1000
 n_trans = 10**5
 scaling = 1
@@ -45,7 +45,7 @@ suma = np.zeros(len(r))
 problems = []
 
 for k in range(len(r)):
-    
+
     g = HorizontalVG(directed='left_to_right').build(ts[:,k])
 
     ks_in, ps_in = dist_degree_in(g)
