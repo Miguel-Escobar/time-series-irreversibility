@@ -1,8 +1,13 @@
 from ts2vg import HorizontalVG
 import numpy as np
 import matplotlib.pyplot as plt
-ts = np.loadtxt('logmap_ts.dat')[:,1]
-q = np.concatenate((np.linspace(0, 1, 1000, endpoint=False), -np.linspace(-5, -1, 4000, endpoint=False)[::-1]))
+ts = np.loadtxt('uniform_ts.dat')[:,1]
+command = input("Graph q dependance? (y/n) ")
+
+if command == "y":
+    q = np.concatenate((np.linspace(0, 1, 1000, endpoint=False), -np.linspace(-5, -1, 4000, endpoint=False)[::-1]))
+else:
+    q = np.array([1.5])
 
 def dist_degree_in(g):
 
@@ -28,7 +33,6 @@ KLD = 0
 RKD = np.zeros_like(q)
 
 for i in range(len(ks_in)):
-    print(i)
     if ks_in[i] in ks_out:
         j = np.where(ks_out == ks_in[i])
         KLD += ps_out[j] * np.log(ps_out[j]/ps_in[i])
@@ -49,15 +53,18 @@ ax.set_yscale('log')
 ax.legend()
 fig.show()
 
-fig2 = plt.figure(2)
-fig2.clf()
-ax2 = fig2.add_subplot(111)
-ax2.plot(q, RKD, label='RKD')
-ax2.plot(q, RD, label='RD')
-ax2.plot(q, LVD, label='LVD')
-ax2.axhline(KLD, label='KLD', color='red')
-ax2.set_xlabel('q')
-ax2.set_ylabel(r'$D(P_{out}||P_{in})$')
-ax2.set_yscale('log')
-ax2.legend()
-fig2.show()
+if command == "y":
+    fig2 = plt.figure(2)
+    fig2.clf()
+    ax2 = fig2.add_subplot(111)
+    ax2.plot(q, RKD, label='RKD')
+    ax2.plot(q, RD, label='RD')
+    ax2.plot(q, LVD, label='LVD')
+    ax2.axhline(KLD, label='KLD', color='red')
+    ax2.set_xlabel('q')
+    ax2.set_ylabel(r'$D(P_{out}||P_{in})$')
+    ax2.set_yscale('log')
+    ax2.legend()
+    fig2.show()
+
+print("Kullback Liebler Divergence value: " + str(KLD))

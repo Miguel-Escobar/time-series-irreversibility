@@ -2,7 +2,7 @@ from ts2vg import HorizontalVG
 import numpy as np
 import matplotlib.pyplot as plt
 
-q = 1.5
+q = 0.5
 r = np.linspace(3.5, 4, 1001)
 N_values = 10**3
 n_trans = 10**4

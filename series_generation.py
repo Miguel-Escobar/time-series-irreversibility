@@ -3,7 +3,7 @@ from numpy.random import default_rng
 import matplotlib.pyplot as plt
 rng = default_rng(2022)
 
-N_values = 10**5
+N_values = 10**6
 indices = np.arange(N_values)
 
 opt = input("Series to generate (O-U/LOG/UNI): ")
